@@ -1,8 +1,9 @@
+# Currently UCSM SDK does not work with Python 3.9 as of this writing - 12/13/20
+
 from ucsmsdk.ucshandle import UcsHandle
-import pprint
 
 def main():
-    handle = UcsHandle("192.168.254.200","ucspe","ucspe", secure=False)
+    handle = UcsHandle("10.0.0.201","ucspe","ucspe", secure=False)
     handle.login()
     
     ## Query Based on Class Name
@@ -13,7 +14,7 @@ def main():
     
     ## Query Class Name with filter
     print("\n\n=== Query Based on Class Name with Filter equal to")
-    filter = "(model,'UCSB-EX-M4-1',type='eq')"
+    filter = "(model, 'UCSB-EX-M4-1', type='eq')"
     blades = handle.query_classid("computeBlade",filter_str=filter)
     for blade in blades:
         print(blade.dn,blade.name,blade.model)
@@ -23,7 +24,7 @@ def main():
     blades = handle.query_classid("computeBlade",filter_str=filter)
     for blade in blades:
         print(blade.dn,blade.name,blade.model)
-    
+
     ## Query Directly the DN of an Object
     print("\n\n=== Query Based on Distinguished Name")
     blade = handle.query_dn(blades[0].dn)
